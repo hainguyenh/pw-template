@@ -1,0 +1,97 @@
+name: Run Playwright Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Project which set in playwright.config.ts'
+        required: true
+        default: 'OS with Playwright'
+        type: choice
+        options:
+          - 'OS with Playwright'
+      environment:
+        description: 'Environment to run (RC or QC)'
+        required: true
+        default: 'RC'
+        type: choice
+        options:
+          - 'RC'
+          - 'QC'
+      suite:
+        description: 'Suite to Run (all or specific suite)'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - 'all'
+          - 'example'
+      tagorname:
+        description: 'Tag or Test Name to run (leave empty or specify a @tag and test name)'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04 # Set the operating system for the job
+    permissions: write-all
+
+    defaults:
+      run:
+        shell: bash # Set the shell for the job
+
+    steps:
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install chromium
+
+      - name: Run Playwright tests
+        env:
+          ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
+          ENV: ${{ github.event.inputs.environment }}
+        run: |
+          if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
+            npx playwright test --project='${{ github.event.inputs.project }}'
+          else
+            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
+          fi
+
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@master
+        if:
+          always()
+          #id: allure-report
+        with:
+          allure_results: test-results/${{ github.event.inputs.environment }}/jsons
+          gh_pages: gh-pages
+          allure_report: allure-report/${{ github.event.inputs.environment }}
+          allure_history: allure-history/${{ github.event.inputs.environment }}
+          keep_reports: 20
+
+      - name: Post the link to the report
+        if: always()
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{secrets.GITHUB_TOKEN}}
+          context: 'Test report'
+          state: 'success'
+          sha: ${{ github.event.pull_request.head.sha }}
+          target_url: simple-elf.github.io/github-allure-history/${{github.run_number}}
