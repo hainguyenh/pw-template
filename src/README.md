@@ -1,0 +1,17 @@
+## Table of Contents
+
+- [**Utilities**](#utilities)
+  - [Page Utilities](docs/Utilities.md#page-utilities)
+  - [Locator Utilities](docs/Utilities.md#locator-utilities)
+  - [Handling Frames](docs/Utilities.md#handling-frames)
+  - [Action Utilities](docs/Utilities.md#action-utilities)
+  - [Locator Visibility Setting](docs/Utilities.md#locator-visibility-setting)
+  - [Overriding Default Visibility Setting](docs/Utilities.md#overriding-default-visibility-setting)
+  - [Managing Alerts](docs/Utilities.md#managing-alerts)
+  - [Element Utilities](docs/Utilities.md#element-utilities)
+  - [Assert Utilities](docs/Utilities.md#assert-utilities)
+  - [Hard Assertions](docs/Utilities.md#hard-assertions)
+  - [Soft Assertions](docs/Utilities.md#soft-assertions)
+  - [Optional Parameter Type Objects](docs/Utilities.md#optional-parameter-type-objects)
+  - [Importing Utility Functions](docs/Utilities.md#importing-utility-functions)
+  - [Test annotations](docs/Utilities.md#test-annotations)
