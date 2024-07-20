@@ -36,6 +36,16 @@ export default defineConfig({
   ],
   globalSetup: require.resolve('./src/config-test/global-setup.ts'),
   globalTeardown: require.resolve('./src/config-test/global-teardown.ts'),
+  use: {
+    headless: true,
+    /* Sets extra headers for CloudFlare. */
+    extraHTTPHeaders: {
+      'CF-Access-Client-Id': process.env.CF_CLIENT_ID || '',
+      'CF-Access-Client-Secret': process.env.CF_CLIENT_SECRET || '',
+    },
+    ignoreHTTPSErrors: true,
+    acceptDownloads: true,
+  },
   /* Configure projects for major browsers */
   projects: [
     {
@@ -43,7 +53,6 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         // For browser actions
-        headless: true,
       },
       // using for verify the test, all expect func will be set the timeout=10s
       expect: {

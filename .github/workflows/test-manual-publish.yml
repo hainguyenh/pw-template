@@ -50,10 +50,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: |
-          npm install
-          npx playwright install chromium
+      - name: Install Playwright Deps
+        run: npx playwright install-deps chromium
+
+      - name: Install Libraries
+        run: npm ci
 
       - name: Run Playwright tests
         env:
