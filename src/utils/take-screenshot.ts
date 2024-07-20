@@ -29,7 +29,7 @@ export async function takeScreenshot(name?: string, locator?: Locator, fullPage:
         type: 'png',
       })
       .catch(async error => {
-        logger.error(`An error occured when trying to capture the locator.\n${error}`);
+        logger.error(`An error occurred when trying to capture the locator.\n${error}`);
         await getPage().screenshot({
           fullPage: fullPage,
           path: fullPath,

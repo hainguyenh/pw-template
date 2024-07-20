@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🚀 Elevate Your Automation: Redefining the Future of Testing, Where Precision Meets Efficiency.
+# 🚀 Elevate Your Automation
 
-## Playwright TypeScript Framework: "Your One-Stop Solution for Web (Desktop & Mobile), API, and Electron Automation Testing"
+## Playwright TypeScript Framework
 
 </div>
 
@@ -11,7 +11,6 @@
 Welcome to the Playwright TypeScript Framework. This unique and comprehensive automation framework is designed to simplify and streamline the process of writing and managing automated tests for Web (Desktop & Mobile), APIs, and Electron Desktop applications. It's built on [Playwright](https://playwright.dev/), a powerful browser automation library, and [TypeScript](https://www.typescriptlang.org/), a statically typed superset of JavaScript, offering a robust and efficient environment for end-to-end testing.
 
 This framework is ideal for QA professionals, developers, and business analysts looking to improve their testing practices and efficiency. It's equipped with utilities that simplify test creation and maintenance, allowing you to focus on writing your tests out of the box.
-
 
 ## Key Features:
 
@@ -120,87 +119,86 @@ This method makes setup easy by avoiding the long steps in the manual installati
 The installation steps are below:
 
 - Install Node.js
-  Node.js installation can be done directly from the website or through CLI. Find the [Node.js installation steps](https://github.com/vasu31dev/playwright-ts-cli#1-install-nodejs) here.
+  Node.js installation can be done directly from the website or through CLI. Find the [Node.js installation steps]]
 
 To upgrade Node.js and npm to their most recent versions, here are some methods listed below:
 
-
 1. **Download Updated Node Binaries**:
 
-    - The most recent versions of Node.js, including the latest and long-term support (LTS) releases suitable for your device, can be downloaded from the [Node.js](https://nodejs.org/en/) website. When you download the newest version of Node.js, it also includes the latest version of npm.
+   - The most recent versions of Node.js, including the latest and long-term support (LTS) releases suitable for your device, can be downloaded from the [Node.js](https://nodejs.org/en/) website. When you download the newest version of Node.js, it also includes the latest version of npm.
 
-    - Finally, verify that your update is complete by checking the node version
+   - Finally, verify that your update is complete by checking the node version
 
-      ```bash
-      node -v
-      ```
+     ```bash
+     node -v
+     ```
 
 2. **Using nvm (Node Version Manager) for Linux and macOS**:  
    NVM is a tool that allows you to manage multiple versions of Node on your system. You can use nvm to install, update, and switch between different versions of Node.
 
    To update your version of Node using nvm, follow the below commands:
 
-    - Check if you already have nvm installed on your system
+   - Check if you already have nvm installed on your system
 
-      ```bash
-      nvm --version
-      ```
+     ```bash
+     nvm --version
+     ```
 
-    - If nvm is not installed, install the latest version of nvm using the below command
+   - If nvm is not installed, install the latest version of nvm using the below command
 
-      ```bash
-      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep 'tag_name' | cut -d\" -f4)/install.sh | bash
-      ```
+     ```bash
+     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep 'tag_name' | cut -d\" -f4)/install.sh | bash
+     ```
 
-    - Once nvm is installed, check the current version of Node by running the below command
+   - Once nvm is installed, check the current version of Node by running the below command
 
-      ```bash
-      node -v
-      ```
+     ```bash
+     node -v
+     ```
 
-    - Update the version of Node using the following command(this will also install the latest npm version)
+   - Update the version of Node using the following command(this will also install the latest npm version)
 
-      ```bash
-      nvm install node --reinstall-packages-from=$(nvm current)
-      ```
+     ```bash
+     nvm install node --reinstall-packages-from=$(nvm current)
+     ```
 
-    - And finally, verify the update is complete by rechecking your Node version
+   - And finally, verify the update is complete by rechecking your Node version
 
-      ```bash
-      node -v
-      ```
+     ```bash
+     node -v
+     ```
 
-    - If you have many node versions installed and want to specify the version to use at a particular time, we can do it by setting a default alias like this
+   - If you have many node versions installed and want to specify the version to use at a particular time, we can do it by setting a default alias like this
 
-      ```bash
-      nvm alias default [version]
-      ```
+     ```bash
+     nvm alias default [version]
+     ```
 
-    - To switch between the installed versions
+   - To switch between the installed versions
 
-      ```bash
-       nvm use [version]
-      ```
+     ```bash
+      nvm use [version]
+     ```
 
 3. **Using Package Managers**:
 
-    - **Homebrew on macOS**:
-      If you initially installed Node.js with Homebrew, you can upgrade with
-      ```bash
-      brew update
-      brew upgrade node
-      ```
-    - **Linux Package Managers (like apt for Ubuntu, yum or dnf for Fedora)**:
-    - First, update your package repository
-      ```bash
-      Ubuntu: sudo apt-get update
-      Fedora: sudo dnf upgrade or sudo yum update
-      ```
-    - Then, upgrade Node.js
-      ```bash
-        Ubuntu: sudo apt-get upgrade nodejs
-        Fedora: sudo dnf upgrade nodejs or sudo yum upgrade nodejs
-      ```
+   - **Homebrew on macOS**:
+     If you initially installed Node.js with Homebrew, you can upgrade with
+     ```bash
+     brew update
+     brew upgrade node
+     ```
+   - **Linux Package Managers (like apt for Ubuntu, yum or dnf for Fedora)**:
+   - First, update your package repository
+     ```bash
+     Ubuntu: sudo apt-get update
+     Fedora: sudo dnf upgrade or sudo yum update
+     ```
+   - Then, upgrade Node.js
+     ```bash
+       Ubuntu: sudo apt-get upgrade nodejs
+       Fedora: sudo dnf upgrade nodejs or sudo yum upgrade nodejs
+     ```
 
 4. If you encounter errors during the installation process, follow these steps to resolve them:
 
@@ -215,7 +213,6 @@ To upgrade Node.js and npm to their most recent versions, here are some methods 
   ```
 
 These steps will help fix permission issues and cache-related problems that might occur during the setup.
-
 
 ### Project Update Guide
 
@@ -366,7 +363,7 @@ npx playwright show-report <path to the report>
 
 ```json
 {
-  "report" : "playwright show-report playwright-report"
+  "report": "playwright show-report playwright-report"
 }
 ```
 
@@ -442,3 +439,7 @@ If you encounter any issues or have feedback, please [Raise an Issue](----not ye
 ## Contributions
 
 We welcome contributions! Feel free to submit a [Pull Request](---- not yet ----) on GitHub.
+
+## Acknowledgments
+
+This project was inspired and use libs from [vasu31dev](https://github.com/vasu31dev/playwright-ts-lib)

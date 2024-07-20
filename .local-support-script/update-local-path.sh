@@ -1,8 +1,13 @@
 #!/bin/bash
 
 # Get the current working directory
-cd ..
 current_dir="$(pwd)"
+
+# Check if the current directory contains the substring "local_script"
+if [[ "$current_dir" == *"local-support-script" ]]; then
+  # Move up one level
+  current_dir="$(dirname "$current_dir")"
+fi
 
 echo "Current dir: ${current_dir}"
 # Define the paths

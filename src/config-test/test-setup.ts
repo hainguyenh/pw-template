@@ -7,6 +7,7 @@
 
 import { test as baseTest, expect } from '@playwright/test';
 import { setPage } from '@page-utils';
+import { logger } from '@utils/log';
 
 /**
  * A hook that runs before each test, setting the page context. The base test object with a beforeEach hook is already
@@ -17,6 +18,7 @@ import { setPage } from '@page-utils';
 export const test = baseTest.extend<{ testHook: void }>({
   testHook: [
     async ({ page }, use) => {
+      logger.info(`Allure results dir: ${process.env.ALLURE_RESULTS_DIR}`);
       // console.log('BEFORE EACH HOOK FROM FIXTURE');
       setPage(page);
       await use();
