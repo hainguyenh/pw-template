@@ -42,14 +42,6 @@ jobs:
         shell: bash # Set the shell for the job
 
     steps:
-      - name: Get Allure history
-        uses: actions/checkout@v2
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -63,6 +55,11 @@ jobs:
           npm install
           npx playwright install chromium
 
+      - name: Prepare Allure history # Step to prepare Allure history directory
+        run: |
+          cd ..
+          mkdir -p test-results/${{ github.event.inputs.environment }}/jsons
+
       - name: Run Playwright tests
         env:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
@@ -73,23 +70,26 @@ jobs:
           else
             npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
           fi
+      - name: Get Allure history # Step to retrieve Allure history
+        uses: actions/checkout@v3
+        if: always() # Execute even if previous steps fail
+        continue-on-error: true # Continue execution even if the step fails
+        with:
+          ref: gh-pages # Specify the branch to retrieve Allure history from
+          path: gh-pages # Set the destination path for Allure history
 
-      - name: Allure Report action from marketplace
+      - name: Allure report action # Step to generate Allure report
         uses: simple-elf/allure-report-action@master
-        if: always()
+        if: always() # Execute even if previous steps fail
         with:
-          allure_results: test-results/${{ github.event.inputs.environment }}/jsons
-          gh_pages: gh-pages
-          allure_report: allure-report/${{ github.event.inputs.environment }}
-          allure_history: allure-history/${{ github.event.inputs.environment }}
-          keep_reports: 20
+          allure_results: test-results/${{ github.event.inputs.environment }}/jsons # Specify the directory containing Allure results
+          allure_history: allure-history # Specify the directory to store Allure history
+          keep_reports: 5 # Specify the number of previous reports to keep
 
-      - name: Post the link to the report
-        if: always()
-        uses: Sibz/github-status-action@v1
+      - name: Deploy Allure report to GitHub Pages # Step to deploy Allure report to GitHub Pages
+        if: always() # Execute even if previous steps fail
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          authToken: ${{ secrets.GITHUB_TOKEN }}
-          context: 'Test report'
-          state: 'success'
-          sha: ${{ github.sha }}
-          target_url: https://hainguyenh.github.io/pw-template/allure-report/${{ github.event.inputs.environment }}/${{ github.run_number }}
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
+          publish_branch: gh-pages # Specify the branch to publish the report to
+          publish_dir: allure-history # Specify the directory containing the report

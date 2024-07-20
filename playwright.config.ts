@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import os from 'os';
 
+const customLoggerPath = require.resolve('src/utils/log/custom-logger.ts');
 const envDetails = {
   environment: process.env.ENV,
   framework: 'playwright',
@@ -15,7 +16,7 @@ export default defineConfig({
   fullyParallel: false,
   outputDir: 'test-results',
   reporter: [
-    ['line'],
+    [customLoggerPath],
     [
       'allure-playwright',
       {
@@ -38,7 +39,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'PoC - OS with Playwright',
+      name: 'PoC with Playwright',
       use: {
         ...devices['Desktop Chrome'],
         // For browser actions

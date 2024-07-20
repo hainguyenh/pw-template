@@ -3,16 +3,11 @@ import fs from 'fs';
 
 class RunningEnv {
   private static instance: RunningEnv;
+  private readonly __baseDir;
 
   private constructor() {
     // Private constructor to prevent instantiation
-  }
-
-  public static getInstance(): RunningEnv {
-    if (!RunningEnv.instance) {
-      RunningEnv.instance = new RunningEnv();
-    }
-    return RunningEnv.instance;
+    this.__baseDir = path.resolve(__dirname, '..', '..');
   }
 
   // Get base url from environment variable
@@ -22,7 +17,7 @@ class RunningEnv {
 
   // Get base result directory from environment variable
   get BASE_RESULT_DIR(): string {
-    return process.env.BASE_RESULT_DIR || '';
+    return path.join(this.__baseDir, process.env.BASE_RESULT_DIR || '');
   }
 
   // Get log directory from environment variable
@@ -37,11 +32,17 @@ class RunningEnv {
     return this.BASE_RESULT_DIR ? path.join(this.BASE_RESULT_DIR, screenshotDir) : '';
   }
 
+  public static getInstance(): RunningEnv {
+    if (!RunningEnv.instance) {
+      RunningEnv.instance = new RunningEnv();
+    }
+    return RunningEnv.instance;
+  }
+
   // Get test data directory from environment variable
   testData() {
     const dataFileName = 'testdata.json';
-    const dataDir = process.env.TESTDATA_DIR || '';
-    const testDataPath = path.join(dataDir, dataFileName);
+    const testDataPath = path.join(this.__baseDir, process.env.TESTDATA_DIR || '', dataFileName);
 
     try {
       const testDataContent = fs.readFileSync(testDataPath, 'utf8');
