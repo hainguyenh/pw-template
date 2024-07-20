@@ -55,11 +55,6 @@ jobs:
           npm install
           npx playwright install chromium
 
-      - name: Prepare Allure history # Step to prepare Allure history directory
-        run: |
-          cd ..
-          mkdir -p test-results/${{ github.event.inputs.environment }}/jsons
-
       - name: Run Playwright tests
         env:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
