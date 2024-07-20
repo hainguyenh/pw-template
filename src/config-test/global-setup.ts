@@ -1,20 +1,22 @@
+import path from 'path';
 import dotenv from 'dotenv';
 import { logger } from '@custom-log';
 import { FullConfig } from '@playwright/test';
 
 export const envConfig = () => {
+  const baseDir = path.resolve(__dirname, '..', '..');
   dotenv.config();
   if (process.env.ENV) {
     logger.info(`Running with env: ${process.env.ENV}`);
     dotenv.config({
-      path: `${__dirname}/../../env/.env.${process.env.ENV}`,
+      path: path.join(baseDir, 'env', `.env.${process.env.ENV.toLowerCase()}`),
       override: true,
     });
   } else {
     // Default env in case no specific env is used
     logger.info('Using default env - RC: ', __dirname);
     dotenv.config({
-      path: `${__dirname}/../../env/.env.rc`,
+      path: path.join(baseDir, 'env', '.env.rc'),
       override: true,
     });
   }

@@ -29,7 +29,10 @@ export class LoginPage {
    */
   public async launchApp(): Promise<void> {
     const url: string = getEnv.BASE_URL;
-    logger.info('Launching app via url: ', url);
+    logger.info(`Launching app via url: ${url}`);
+    logger.info(`Screenshot dir: ${getEnv.SCREENSHOT_DIR}`);
+    logger.info(`Base dir: ${getEnv.BASE_RESULT_DIR}`);
+    logger.info(`Log dir: ${getEnv.LOG_DIR}`);
     await gotoURL(url);
     await waitForElementToBeVisible(this.emailTxt);
   }

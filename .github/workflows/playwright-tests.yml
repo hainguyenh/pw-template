@@ -84,11 +84,11 @@ jobs:
           allure_history: allure-history/${{ github.event.inputs.environment }}
           keep_reports: 20
 
-      - name: Post the link to the report
-        if: always()
-        uses: Sibz/github-status-action@v1
-        with:
-          authToken: ${{ secrets.GITHUB_TOKEN }}
-          context: 'Test report'
-          state: 'success'
-          target_url: https://hainguyenh.github.io/pw-template/allure-report/${{ github.event.inputs.environment }}/${{ github.run_number }}
+#      - name: Post the link to the report
+#        if: always()
+#        uses: Sibz/github-status-action@v1
+#        with:
+#          authToken: ${{ secrets.GITHUB_TOKEN }}
+#          context: 'Test report'
+#          state: 'success'
+#          target_url: https://hainguyenh.github.io/pw-template/allure-report/${{ github.event.inputs.environment }}/${{ github.run_number }}
