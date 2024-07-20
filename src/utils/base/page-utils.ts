@@ -13,7 +13,7 @@ import {
   SwitchPageOptions,
   WaitForLoadStateOptions,
 } from '../types/optional-parameter-types';
-import { getDefaultLoadState } from '../constants';
+import { getDefaultLoadState } from '@timeouts';
 
 let page: Page;
 

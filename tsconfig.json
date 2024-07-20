@@ -22,7 +22,7 @@
       "@ui-element": ["src/utils/base/ui-element", "src/utils/base/ui-actions", "src/utils/base/ui-waits"],
       "@verify-helper": ["src/utils/base/verify-helper"],
       "@page-utils": ["src/utils/base/page-utils"],
-      "@timeouts": ["src/utils/constants/timeouts", "src/utils/constants/load-state"],
+      "@timeouts": ["src/utils/constants"],
       "@page-manager": ["src/page-objects/page-manager"],
       "@test-setup": ["src/config-test/test-setup"],
       "@playwright-config": ["playwright.config"]

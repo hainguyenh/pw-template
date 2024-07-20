@@ -1,6 +1,8 @@
 import { test } from '@page-manager';
 import { allure } from 'allure-playwright';
 import { getTestData } from '@test-env';
+import * as process from 'node:process';
+import { logger } from '@utils/log';
 
 /**
  * This is an example Suite
@@ -17,6 +19,8 @@ test.describe('Example Suite', () => {
     await allure.tags('@Example');
     await allure.issue('https://example.com/docs', 'OWS-Example-Id');
     await allure.step('Open application', async () => {
+      logger.info('get env');
+      logger.info(process.env.ALLURE_RESULTS_DIR);
       await loginPage.launchApp();
     });
     await allure.step('Input username and password', async () => {

@@ -34,7 +34,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04 # Set the operating system for the job
+    runs-on: ubuntu-latest # Set the operating system for the job
     permissions: write-all
 
     defaults:
@@ -53,7 +53,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          npx playwright install chromium
 
       - name: Run Playwright tests
         env:
@@ -67,6 +66,7 @@ jobs:
           else
             npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
           fi
+
       - name: Get Allure history # Step to retrieve Allure history
         uses: actions/checkout@v3
         if: always() # Execute even if previous steps fail
