@@ -9,7 +9,7 @@ on:
         default: 'PoC with Playwright'
         type: choice
         options:
-          - 'OS with Playwright'
+          - 'PoC with Playwright'
       environment:
         description: 'Environment to run (RC or QC)'
         required: true
@@ -91,5 +91,4 @@ jobs:
           authToken: ${{ secrets.GITHUB_TOKEN }}
           context: 'Test report'
           state: 'success'
-          sha: ${{ github.sha }}
           target_url: https://hainguyenh.github.io/pw-template/allure-report/${{ github.event.inputs.environment }}/${{ github.run_number }}
