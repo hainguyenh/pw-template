@@ -59,7 +59,8 @@ jobs:
           npm ci
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright@1.44.1 install
+        
 
       - name: Run Playwright tests
         env:
