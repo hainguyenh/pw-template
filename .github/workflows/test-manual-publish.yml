@@ -50,6 +50,18 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Clean npm cache
+        run: |
+          npm cache clean --force
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Remove existing Playwright browsers
+        run: |
+          rm -rf ~/.cache/ms-playwright
+
       - name: Install Playwright Deps
         run: npx playwright install-deps chromium
 
@@ -61,14 +73,13 @@ jobs:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
           ENV: ${{ github.event.inputs.environment }}
         run: |
-          npm test
-#          if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
-#            npx playwright test --project='${{ github.event.inputs.project }}' --debug
-#          elif [ "${{ github.event.inputs.suite }}" != "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
-#            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.suite }}' --debug
-#          else
-#            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}' --debug
-#          fi
+         if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
+           npx playwright test --project='${{ github.event.inputs.project }}' --debug
+         elif [ "${{ github.event.inputs.suite }}" != "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
+           npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.suite }}' --debug
+         else
+           npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}' --debug
+         fi
 
       - name: Get Allure history # Step to retrieve Allure history
         uses: actions/checkout@v3
