@@ -12,9 +12,9 @@ const customColors = {
   error: 'red',
 };
 addColors(customColors);
-
+const srcDir = path.join(__dirname, '..', '..', '..');
 // Change to 'logs' folder
-const currentDir = path.resolve(__dirname, '..', '..', '..', 'test-results', 'logs');
+const currentDir = path.join(srcDir, 'test-results', 'logs');
 const loggingDir = path.resolve(getEnv.LOG_DIR || currentDir);
 
 // Function to format log entries with timestamp and timezone

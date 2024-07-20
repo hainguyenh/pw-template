@@ -67,6 +67,8 @@ jobs:
         run: |
           if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
             npx playwright test --project='${{ github.event.inputs.project }}'
+          elif [ "${{ github.event.inputs.suite }}" != "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
+            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.suite }}'
           else
             npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
           fi
@@ -76,7 +78,7 @@ jobs:
         continue-on-error: true # Continue execution even if the step fails
         with:
           ref: report/${{ github.event.inputs.environment }} # Specify the branch to retrieve Allure history from
-          path: report/${{ github.event.inputs.environment }} # Set the destination path for Allure history
+          path: allure-history # Set the destination path for Allure history
 
       - name: Allure report action # Step to generate Allure report
         uses: simple-elf/allure-report-action@master
@@ -92,4 +94,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
           publish_branch: report/${{ github.event.inputs.environment }} # Specify the branch to publish the report to
-          publish_dir: allure-history # Specify the directory containing the report
+          publish_dir: ${{ github.run_number }} # Specify the directory containing the report
+          target_url: https://hainguyenh.github.io/pw-template/allure-report/${{ github.event.inputs.environment }}/${{ github.run_number }}
