@@ -53,6 +53,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          npx playwright install 
 
       - name: Run Playwright tests
         env:
