@@ -2,16 +2,21 @@ import { addColors, createLogger, format, transports } from 'winston';
 import path from 'path';
 import moment from 'moment-timezone';
 import { getEnv } from '@test-env';
-import { Reporter, TestCase, TestError, TestResult } from '@playwright/test/reporter';
+import { Reporter, Suite, TestCase, TestError, TestResult } from '@playwright/test/reporter';
+import { TestStep } from 'playwright/types/testReporter';
+import { FullConfig } from '@playwright/test';
 
 /**
  * Custom colors for the logger
  */
 const customColors = {
   info: 'blue',
+  warn: 'yellow',
   error: 'red',
 };
 addColors(customColors);
+
+// Change to 'logs' folder
 const srcDir = path.join(__dirname, '..', '..', '..');
 // Change to 'logs' folder
 const currentDir = path.join(srcDir, 'test-results', 'logs');
@@ -54,12 +59,16 @@ export const logger = createLogger({
  * CustomLogger class that implements the Reporter interface from Playwright
  */
 export default class CustomLogger implements Reporter {
+  onBegin(_config: FullConfig, suite: Suite) {
+    logger.info(`Suite [${suite.title}] starting`);
+  }
+
   /**
    * Logs the start of a test case
    * @param {TestCase} test - The test case that is starting
    */
   onTestBegin(test: TestCase): void {
-    logger.info(`Test Case Started : ${test.title}`);
+    logger.info(`\tTest [${test.title}] starting`);
   }
 
   /**
@@ -69,12 +78,22 @@ export default class CustomLogger implements Reporter {
    */
   onTestEnd(test: TestCase, result: TestResult): void {
     if (result.status === 'passed') {
-      logger.info(`\x1b[32mTest Case Passed : ${test.title}\x1b[0m`); // Green color
+      logger.info(`\x1b[32m\t[${test.title}] Passed\x1b[0m`); // Green color
     } else if (result.status === 'skipped') {
-      logger.info(`\x1b[33mTest Case Skipped : ${test.title}\x1b[0m`); // Yellow color
+      logger.info(`\x1b[33m\t[${test.title}] Skipped\x1b[0m`); // Yellow color
     } else if (result.status === 'failed' && result.error) {
       // Playwright build-in reporter logs the error
-      logger.error(`Test Case Failed: ${test.title} Error: ${result.error.message}`);
+      logger.error(`\t[${test.title}]\nError: ${result.error.message}`);
+    }
+  }
+
+  onStepBegin(_test: TestCase, _result: TestResult, step: TestStep) {
+    logger.info(`\t\t${step.title}`);
+  }
+
+  onStepEnd(_test: TestCase, _result: TestResult, step: TestStep) {
+    if (step.error) {
+      logger.error(`\t\t${step.title}\nError: ${step.error.message}`);
     }
   }
 
