@@ -61,13 +61,14 @@ jobs:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
           ENV: ${{ github.event.inputs.environment }}
         run: |
-          if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
-            npx playwright test --project='${{ github.event.inputs.project }}' --debug
-          elif [ "${{ github.event.inputs.suite }}" != "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
-            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.suite }}' --debug
-          else
-            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}' --debug
-          fi
+          npm test
+#          if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
+#            npx playwright test --project='${{ github.event.inputs.project }}' --debug
+#          elif [ "${{ github.event.inputs.suite }}" != "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
+#            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.suite }}' --debug
+#          else
+#            npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}' --debug
+#          fi
 
       - name: Get Allure history # Step to retrieve Allure history
         uses: actions/checkout@v3
