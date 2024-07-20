@@ -94,4 +94,4 @@ jobs:
           context: 'Test report'
           state: 'success'
           sha: ${{ github.sha }}
-          target_url: hainguyenh.github.io/pw-template/${{github.run_number}}
+          target_url: https://hainguyenh.github.io/pw-template/${{github.run_number}}
