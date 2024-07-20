@@ -76,9 +76,7 @@ jobs:
 
       - name: Allure Report action from marketplace
         uses: simple-elf/allure-report-action@master
-        if:
-          always()
-          #id: allure-report
+        if: always()
         with:
           allure_results: test-results/${{ github.event.inputs.environment }}/jsons
           gh_pages: gh-pages
@@ -90,8 +88,8 @@ jobs:
         if: always()
         uses: Sibz/github-status-action@v1
         with:
-          authToken: ${{secrets.GITHUB_TOKEN}}
+          authToken: ${{ secrets.GITHUB_TOKEN }}
           context: 'Test report'
           state: 'success'
           sha: ${{ github.sha }}
-          target_url: https://hainguyenh.github.io/pw-template/${{github.run_number}}
+          target_url: https://hainguyenh.github.io/pw-template/allure-report/${{ github.event.inputs.environment }}/${{ github.run_number }}
