@@ -54,11 +54,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '21'
-      - name: move up
-        run: |
-          cd ..
-          pwd
-          ls -l
       
       - name: Install dependencies
         run:
@@ -69,7 +64,10 @@ jobs:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
           ENV: ${{ github.event.inputs.environment }}
           headless: true
-        run: npx playwright test --project='PoC with Playwright' --debug
+        run: |
+          pwd
+          ll
+          xvfb-run playwright test --project='PoC with Playwright' --debug
         # run: |
         #   if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
         #     npx playwright test --project='${{ github.event.inputs.project }}' --debug
