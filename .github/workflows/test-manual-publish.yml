@@ -65,7 +65,7 @@ jobs:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
         # run: |
         run:
-          ENV=${{ github.event.inputs.environment }} npx playwright --project='${{ github.event.inputs.project }}'
+          ENV=${{ github.event.inputs.environment }} npx playwright test --project='${{ github.event.inputs.project }}'
           # if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
           #   npx playwright test --project='${{ github.event.inputs.project }}'
           # else
