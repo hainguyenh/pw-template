@@ -54,7 +54,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '21'
-      - uses: ./
+      - name: move up
+        run: |
+          cd ..
+          pwd
+          ls -l
       
       - name: Install dependencies
         run:
