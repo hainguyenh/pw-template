@@ -44,7 +44,9 @@ export default defineConfig({
     },
     ignoreHTTPSErrors: true,
     acceptDownloads: true,
+    headless: true,
   },
+
   /* Configure projects for major browsers */
   projects: [
     {
