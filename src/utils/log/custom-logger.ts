@@ -17,7 +17,7 @@ const customColors = {
 addColors(customColors);
 
 // Change to 'logs' folder
-const srcDir = path.join(__dirname, '..', '..', '..');
+const srcDir = path.join(__dirname, '..', '..');
 // Change to 'logs' folder
 const currentDir = path.join(srcDir, 'test-results', 'logs');
 const loggingDir = path.resolve(getEnv.LOG_DIR || currentDir);

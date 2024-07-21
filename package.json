@@ -16,8 +16,8 @@
     "test": "playwright test",
     "lint": "cross-env eslint 'src/**/*.ts' 'playwright.config.ts' '.eslintrc.js'",
     "ui": "playwright test --ui",
-    "test:local": "ALLURE_RESULTS_DIR=test-results/rc/jsons ENV=rc npx playwright test --headed --project='PoC - OS with Playwright'",
-    "test:all": "ALLURE_RESULTS_DIR=test-results/rc/jsons ENV=rc npx playwright test --headed --project='PoC - OS with Playwright'",
+    "test:local": "ALLURE_RESULTS_DIR=test-results/rc/jsons ENV=rc npx playwright test --headed --project='PoC with Playwright'",
+    "test:all": "ALLURE_RESULTS_DIR=test-results/rc/jsons ENV=rc npx playwright test --headed --project='PoC with Playwright'",
     "report": "allure generate ./test-results/rc/jsons --clean -o ./test-results/rc/html && allure open ./test-results/rc/html",
     "prepare": "husky",
     "postinstall": "playwright install chromium"

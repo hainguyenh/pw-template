@@ -37,7 +37,6 @@ export default defineConfig({
   globalSetup: require.resolve('./src/config-test/global-setup.ts'),
   globalTeardown: require.resolve('./src/config-test/global-teardown.ts'),
   use: {
-    headless: true,
     /* Sets extra headers for CloudFlare. */
     extraHTTPHeaders: {
       'CF-Access-Client-Id': process.env.CF_CLIENT_ID || '',
@@ -53,11 +52,15 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         // For browser actions
-      },
-      // using for verify the test, all expect func will be set the timeout=10s
-      expect: {
-        timeout: 10 * 1000,
-      },
+        launchOptions: {
+          args: ['--disable-web-security', '--start-maximized'],
+          /* --auto-open-devtools-for-tabs option is used to open a test with Network tab for debugging. It can help in analyzing network requests and responses.*/
+          // args: ["--disable-web-security","--auto-open-devtools-for-tabs"],
+          // channel: 'chrome',
+          slowMo: 0,
+          headless: true,
+        },
+      }
     },
   ],
 });

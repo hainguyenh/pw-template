@@ -58,15 +58,11 @@ jobs:
         run:
           npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright@1.44.1 install
-        
-
       - name: Run Playwright tests
         env:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
           ENV: ${{ github.event.inputs.environment }}
-        run: npx playwright test --debug
+        run: npx playwright test --project='PoC with Playwright' --debug
         # run: |
         #   if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
         #     npx playwright test --project='${{ github.event.inputs.project }}' --debug
