@@ -63,7 +63,7 @@ jobs:
         run: |
             npm ci --cache .npm --prefer-offline
             npx playwright install
-            npx playwright test --project='PoC with Playwright' --headed=false --debug
+            npx playwright test --project='PoC with Playwright' --debug
         # run: |
         #   if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
         #     npx playwright test --project='${{ github.event.inputs.project }}' --debug
