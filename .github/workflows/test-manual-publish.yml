@@ -56,22 +56,21 @@ jobs:
           node-version: '21'
       
       - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install chromium
+  
+      - name: Run Playwright tests
         env:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
-          ENV: ${{ github.event.inputs.environment }}
-          headless: true
-        run: |
-            npm ci --cache .npm --prefer-offline
-            npx playwright install
-            npx playwright test --project='PoC with Playwright' --debug
         # run: |
-        #   if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
-        #     npx playwright test --project='${{ github.event.inputs.project }}' --debug
-        #   elif [ "${{ github.event.inputs.suite }}" != "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
-        #     npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.suite }}' --debug
-        #   else
-        #     npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}' --debug
-        #   fi
+        run:
+          ENV=${{ github.event.inputs.environment }} npx playwright test --project='${{ github.event.inputs.project }}' --debug
+          # if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
+          #   npx playwright test --project='${{ github.event.inputs.project }}'
+          # else
+          #   npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
+          # fi
 
       - name: Allure report action # Step to generate Allure report
         uses: simple-elf/allure-report-action@master
