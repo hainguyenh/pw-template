@@ -36,6 +36,7 @@ jobs:
   test:
     runs-on: ubuntu-22.04 # Set the operating system for the job
     permissions: write-all
+    
 
     steps:
       - name: Get Allure history # Step to retrieve Allure history
@@ -53,7 +54,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '21'
-
+      - uses: ./
+      
       - name: Install dependencies
         run:
           npm ci
@@ -62,6 +64,7 @@ jobs:
         env:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
           ENV: ${{ github.event.inputs.environment }}
+          headless: true
         run: npx playwright test --project='PoC with Playwright' --debug
         # run: |
         #   if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
