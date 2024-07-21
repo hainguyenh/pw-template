@@ -56,18 +56,16 @@ jobs:
           node-version: '21'
       
       - name: Install dependencies
-        run:
-          npm ci
-
-      - name: Run Playwright tests
         env:
           ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
           ENV: ${{ github.event.inputs.environment }}
           headless: true
         run: |
-          pwd
-          ls -l
-          xvfb-run playwright test --project='PoC with Playwright' --debug
+            npm ci --cache .npm --prefer-offline
+            npx playwright install
+            pwd
+            ll -s
+            npx playwright test --project='PoC with Playwright' --headed=false --debug
         # run: |
         #   if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
         #     npx playwright test --project='${{ github.event.inputs.project }}' --debug
