@@ -1,6 +1,9 @@
 name: Test allure report
 
 on:
+  push:
+    branches:
+      - main  # Adjust this as per your branch
   workflow_dispatch:
     inputs:
       project:
@@ -67,7 +70,7 @@ jobs:
           # if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
           #   npx playwright test --project='${{ github.event.inputs.project }}'
           # else
-          #   npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
+        #   npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
         # fi
 
       - name: Get Allure history # Step to retrieve Allure history
