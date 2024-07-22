@@ -55,14 +55,9 @@ jobs:
           npm install
           npx playwright install chromium
 
-      - name: Prepare Allure history # Step to prepare Allure history directory
-        run: |
-          cd ..
-          mkdir -p test-results/${{ github.event.inputs.environment }}
-
       - name: Run Playwright tests
         env:
-          ALLURE_RESULTS_DIR: ../test-results/${{ github.event.inputs.environment }}
+          ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}
           ENV: ${{ github.event.inputs.environment }}
         # run: |
         run:
@@ -85,7 +80,7 @@ jobs:
         uses: simple-elf/allure-report-action@master
         if: always() # Execute even if previous steps fail
         with:
-          allure_results: ../test-results/${{ github.event.inputs.environment }} # Specify the directory containing Allure results
+          allure_results: test-results/${{ github.event.inputs.environment }} # Specify the directory containing Allure results
           allure_history: allure-history # Specify the directory to store Allure history
           keep_reports: 5 # Specify the number of previous reports to keep
 
