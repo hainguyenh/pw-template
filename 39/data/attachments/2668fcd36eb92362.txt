@@ -1,0 +1,8 @@
+2024-07-22T10:54:05+07:00 [info]: get env
+2024-07-22T10:54:05+07:00 [info]: test-results/RC
+2024-07-22T10:54:05+07:00 [info]: Launching app via url: https://google.com
+2024-07-22T10:54:05+07:00 [info]: Screenshot dir: /home/runner/work/pw-template/pw-template/test-results/screenshot/
+2024-07-22T10:54:05+07:00 [info]: Base dir: /home/runner/work/pw-template/pw-template/test-results/
+2024-07-22T10:54:05+07:00 [info]: Log dir: /home/runner/work/pw-template/pw-template/test-results/logs/
+2024-07-22T10:54:05+07:00 [error]: waitForElementToBeVisible- (0 , _uiElement.getLocator) is not a function
+2024-07-22T10:54:05+07:00 [info]: Taking screenshot: /home/runner/work/pw-template/pw-template/test-results/screenshot/Example-test-script-1/2024JulMo035405.png
