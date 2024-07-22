@@ -17,19 +17,19 @@ class RunningEnv {
 
   // Get base result directory from environment variable
   get BASE_RESULT_DIR(): string {
-    return path.join(this.__baseDir, process.env.BASE_RESULT_DIR || '');
+    return path.join(this.__baseDir, process.env.BASE_RESULT_DIR || 'test-results');
   }
 
   // Get log directory from environment variable
   get LOG_DIR(): string {
-    const logDir = process.env.LOG_DIR || '';
-    return this.BASE_RESULT_DIR ? path.join(this.BASE_RESULT_DIR, logDir) : '';
+    const logDir = process.env.LOG_DIR || 'logs';
+    return path.join(this.BASE_RESULT_DIR, logDir);
   }
 
   // Get screenshot directory from environment variable
   get SCREENSHOT_DIR(): string {
-    const screenshotDir = process.env.SCREENSHOT_DIR || '';
-    return this.BASE_RESULT_DIR ? path.join(this.BASE_RESULT_DIR, screenshotDir) : '';
+    const screenshotDir = process.env.SCREENSHOT_DIR || 'screenshot';
+    return path.join(this.BASE_RESULT_DIR, screenshotDir);
   }
 
   public static getInstance(): RunningEnv {

@@ -36,17 +36,9 @@ jobs:
   test:
     runs-on: ubuntu-22.04 # Set the operating system for the job
     permissions: write-all
-    
+
 
     steps:
-      - name: Get Allure history # Step to retrieve Allure history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: report/${{ github.event.inputs.environment }} # Specify the branch to retrieve Allure history from
-          path: allure-history # Set the destination path for Allure history
-
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -54,29 +46,43 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '21'
-      
+
       - name: Install dependencies
         run: |
           npm install
           npx playwright install chromium
-  
+
+      - name: Prepare Allure history # Step to prepare Allure history directory
+        run: |
+          cd ..
+          mkdir -p test-results/${{ github.event.inputs.environment }}
+
       - name: Run Playwright tests
         env:
-          ALLURE_RESULTS_DIR: test-results/${{ github.event.inputs.environment }}/jsons
+          ALLURE_RESULTS_DIR: ../test-results/${{ github.event.inputs.environment }}
+          ENV: ${{ github.event.inputs.environment }}
         # run: |
         run:
-          ENV=${{ github.event.inputs.environment }} npx playwright test --project='${{ github.event.inputs.project }}'
+          npx playwright test --project='${{ github.event.inputs.project }}'
           # if [ "${{ github.event.inputs.suite }}" = "all" ] && [ -z "${{ github.event.inputs.tagorname }}" ]; then
           #   npx playwright test --project='${{ github.event.inputs.project }}'
           # else
           #   npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
-          # fi
+        # fi
+
+      - name: Get Allure history # Step to retrieve Allure history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: report/${{ github.event.inputs.environment }} # Specify the branch to retrieve Allure history from
+          path: allure-history # Set the destination path for Allure history
 
       - name: Allure report action # Step to generate Allure report
         uses: simple-elf/allure-report-action@master
         if: always() # Execute even if previous steps fail
         with:
-          allure_results: test-results/${{ github.event.inputs.environment }}/jsons # Specify the directory containing Allure results
+          allure_results: ../test-results/${{ github.event.inputs.environment }} # Specify the directory containing Allure results
           allure_history: allure-history # Specify the directory to store Allure history
           keep_reports: 5 # Specify the number of previous reports to keep
 
@@ -86,4 +92,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
           publish_branch: report/${{ github.event.inputs.environment }} # Specify the branch to publish the report to
-          publish_dir: ${{ github.run_number }} # Specify the directory containing the report
+          publish_dir: allure-history # Specify the directory containing the report

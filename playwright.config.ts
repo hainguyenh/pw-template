@@ -59,10 +59,8 @@ export default defineConfig({
           /* --auto-open-devtools-for-tabs option is used to open a test with Network tab for debugging. It can help in analyzing network requests and responses.*/
           // args: ["--disable-web-security","--auto-open-devtools-for-tabs"],
           // channel: 'chrome',
-          slowMo: 0,
-          headless: true,
         },
-      }
+      },
     },
   ],
 });
