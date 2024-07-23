@@ -37,9 +37,11 @@ on:
 jobs:
   Checkout-Code:
     runs-on: ubuntu-20.04
-    permissions: write-all
+    outputs:
+      repo-path: ${{ steps.check.outputs.repo-path }}
     steps:
       - name: Checkout code
+        id: check
         uses: actions/checkout@v3
 
   Install-Dependencies:
@@ -73,10 +75,21 @@ jobs:
             npx playwright test --project='${{ github.event.inputs.project }}' -g '${{ github.event.inputs.tagorname }}'
           fi
 
+      - name: Upload test results as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results
+
   Collect-And-Deploy-Report:
     runs-on: ubuntu-20.04
     needs: Run-Tests
     steps:
+      - name: Download test results artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: test-results
+
       - name: Checkout code for report
         uses: actions/checkout@v3
         if: always()
